@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>René Türk — Head of Digital Applications</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f7f5f0;
+      --white: #ffffff;
+      --ink: #1a1814;
+      --ink-mid: #4a4640;
+      --ink-soft: #9a9590;
+      --rule: #e0dcd4;
+      --accent: #c0392b;
+      --accent-warm: #e8a87c;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Outfit', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(247,245,240,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem; font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-soft); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    section { max-width: 1100px; margin: 0 auto; padding: 7rem 3rem 5rem; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      padding-top: 9rem;
+    }
+    .hero-overline {
+      font-size: 0.72rem; font-weight: 400;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.5s 0.2s ease forwards;
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(4rem, 7vw, 6.5rem);
+      font-weight: 300; line-height: 1.0;
+      letter-spacing: -0.01em; margin-bottom: 0.5rem;
+      opacity: 0; animation: fadeUp 0.6s 0.35s ease forwards;
+    }
+    .hero-name em { font-style: italic; color: var(--accent); }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: 1.15rem; font-weight: 300;
+      color: var(--ink-mid); letter-spacing: 0.05em;
+      margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeUp 0.6s 0.5s ease forwards;
+    }
+    .hero-bio {
+      font-size: 0.95rem; color: var(--ink-mid);
+      line-height: 1.85; max-width: 440px; margin-bottom: 3rem;
+      opacity: 0; animation: fadeUp 0.6s 0.65s ease forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem;
+      opacity: 0; animation: fadeUp 0.6s 0.78s ease forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.8rem 2rem; background: var(--ink);
+      color: var(--bg); font-size: 0.78rem; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.8rem 2rem; border: 1px solid var(--rule);
+      color: var(--ink-mid); font-size: 0.78rem; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--ink); color: var(--ink); }
+
+    .hero-right {
+      display: flex; flex-direction: column; gap: 1px;
+      background: var(--rule); border: 1px solid var(--rule);
+      opacity: 0; animation: fadeIn 0.8s 0.9s ease forwards;
+    }
+    .stat-card {
+      background: var(--white);
+      padding: 2rem 2.5rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .stat-card.accent-card { background: var(--ink); color: var(--bg); }
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 3.5rem; font-weight: 300;
+      line-height: 1; letter-spacing: -0.02em;
+    }
+    .accent-card .stat-number { color: var(--accent-warm); }
+    .stat-label {
+      font-size: 0.78rem; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .accent-card .stat-label { color: rgba(247,245,240,0.5); }
+    .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); }
+
+    /* SEC HEADER */
+    .sec-header {
+      display: flex; align-items: baseline;
+      gap: 1.5rem; margin-bottom: 4rem;
+    }
+    .sec-num {
+      font-family: var(--serif);
+      font-size: 0.85rem; font-style: italic; color: var(--accent);
+    }
+    .sec-title {
+      font-family: var(--serif);
+      font-size: 2.8rem; font-weight: 300; letter-spacing: -0.01em;
+    }
+    .sec-rule { flex: 1; height: 1px; background: var(--rule); margin-bottom: 0.3rem; }
+
+    /* ABOUT */
+    #about { border-top: 1px solid var(--rule); }
+    .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 5rem; }
+    .about-text p {
+      font-size: 1rem; color: var(--ink-mid);
+      line-height: 1.9; margin-bottom: 1.2rem;
+    }
+    .about-text p strong { color: var(--ink); font-weight: 500; }
+    .skills-block { margin-top: 2.5rem; }
+    .skill-group { margin-bottom: 1.5rem; }
+    .skill-group-name {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-mid); margin-bottom: 0.6rem;
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-pill {
+      font-size: 0.8rem; padding: 0.3rem 0.9rem;
+      border: 1px solid var(--rule);
+      color: var(--ink-mid); background: var(--white);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .skill-pill:hover { border-color: var(--accent); color: var(--accent); }
+    .lang-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+    .lang-item { display: flex; justify-content: space-between; align-items: center; font-size: 0.88rem; }
+    .lang-name { color: var(--ink); }
+    .lang-level { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+
+    .sidebar-card {
+      background: var(--white); border: 1px solid var(--rule);
+      padding: 2rem; margin-bottom: 1rem;
+    }
+    .sidebar-card h4 {
+      font-size: 0.72rem; font-weight: 400;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--ink-soft); margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule);
+    }
+    .contact-item { display: flex; flex-direction: column; gap: 0.15rem; margin-bottom: 1.1rem; }
+    .contact-item:last-child { margin-bottom: 0; }
+    .contact-item-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+    .contact-item-value { font-size: 0.88rem; color: var(--ink); text-decoration: none; word-break: break-all; }
+    a.contact-item-value:hover { color: var(--accent); }
+
+    /* CV */
+    #cv { border-top: 1px solid var(--rule); }
+    .cv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .cv-col-title {
+      font-size: 0.72rem; font-weight: 400;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--ink-soft); margin-bottom: 2.5rem;
+    }
+    .timeline { display: flex; flex-direction: column; }
+    .tl-item {
+      display: grid; grid-template-columns: 100px 1fr;
+      gap: 1.5rem; padding-bottom: 2.5rem; position: relative;
+    }
+    .tl-item::after {
+      content: ''; position: absolute;
+      left: 100px; top: 8px; bottom: 0;
+      width: 1px; background: var(--rule);
+    }
+    .tl-item:last-child::after { display: none; }
+    .tl-year {
+      font-family: var(--serif);
+      font-size: 0.82rem; font-style: italic;
+      color: var(--accent); padding-top: 3px;
+      text-align: right; position: relative;
+    }
+    .tl-year::after {
+      content: ''; position: absolute;
+      right: -1.6rem; top: 8px;
+      width: 8px; height: 8px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%; background: var(--bg);
+    }
+    .tl-role { font-weight: 500; font-size: 1rem; margin-bottom: 0.2rem; }
+    .tl-company { font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 0.75rem; }
+    .tl-points { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tl-points li {
+      font-size: 0.85rem; color: var(--ink-mid);
+      padding-left: 1rem; position: relative; line-height: 1.6;
+    }
+    .tl-points li::before {
+      content: '—'; position: absolute; left: 0;
+      color: var(--accent); font-size: 0.75rem;
+    }
+
+    /* CONTACT */
+    #contact { border-top: 1px solid var(--rule); min-height: 60vh; display: flex; flex-direction: column; justify-content: center; }
+    .contact-big { display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem; align-items: center; }
+    .contact-heading {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300; line-height: 1.1;
+      letter-spacing: -0.01em; margin-bottom: 1.5rem;
+    }
+    .contact-heading em { font-style: italic; color: var(--accent); }
+    .contact-sub { font-size: 0.95rem; color: var(--ink-mid); line-height: 1.8; max-width: 400px; }
+    .contact-cards { display: flex; flex-direction: column; gap: 0.75rem; }
+    .contact-card {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; background: var(--white);
+      border: 1px solid var(--rule); text-decoration: none;
+      color: var(--ink); transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-card:hover { border-color: var(--accent); transform: translateX(4px); }
+    .contact-card-inner { display: flex; flex-direction: column; gap: 0.2rem; }
+    .contact-card-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+    .contact-card-value { font-size: 0.9rem; }
+    .contact-card-arrow { color: var(--accent); font-size: 1.1rem; }
+
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 3rem;
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-copy { font-size: 0.75rem; color: var(--ink-soft); letter-spacing: 0.06em; }
+    .footer-loc { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--ink-soft); }
+    .footer-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2.5s ease infinite; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity: 0.25; } }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+
+    @media (max-width: 820px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      section { padding: 5rem 1.5rem 4rem; }
+      #hero { grid-template-columns: 1fr; padding-top: 7rem; }
+      .hero-right { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .cv-grid { grid-template-columns: 1fr; }
+      .contact-big { grid-template-columns: 1fr; gap: 3rem; }
+      footer { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#hero" class="nav-logo">René Türk</a>
+    <ul class="nav-links">
+      <li><a href="#about">Profil</a></li>
+      <li><a href="#cv">Erfahrung</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-overline">Head of Digital Applications · Wien, AT</p>
+      <h1 class="hero-name">René<br><em>Türk</em></h1>
+      <p class="hero-title">Produktmanager · Wirtschaftsingenieur · Leader</p>
+      <p class="hero-bio">
+        Erfahrener Produktmanager mit Fokus auf digitale Applikationen und SaaS-Lösungen. Führungsstark, strategisch denkend und erfahren in der Koordination internationaler Teams. Leidenschaft für Innovation, agile Methoden und nachhaltige Produktentwicklung.
+      </p>
+      <div class="hero-actions">
+        <a href="#cv" class="btn-primary">Lebenslauf ansehen</a>
+        <a href="#contact" class="btn-outline">Kontakt aufnehmen</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="stat-card accent-card">
+        <span class="stat-number">25+</span>
+        <span class="stat-label">Jahre Berufserfahrung</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card">
+          <span class="stat-number">7</span>
+          <span class="stat-label">Teamgröße</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">20%</span>
+          <span class="stat-label">Effizienzsteigerung</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">2</span>
+        <span class="stat-label">Aktuelle Führungsrollen</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sec-header reveal">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">Profil & Kenntnisse</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Mit über zwei Jahrzehnten Erfahrung in der Technologie- und Produktentwicklung bringe ich strategisches Denken mit operativer Umsetzungsstärke zusammen. Mein Schwerpunkt liegt auf der <strong>Entwicklung digitaler SaaS-Produkte</strong>, der Führung cross-funktionaler Teams und der Gestaltung nachhaltiger Digitalstrategien.</p>
+        <p>Als <strong>Head of Digital Applications</strong> bei Schrack Seconet AG verantworte ich seit 2018 die strategische Ausrichtung digitaler Applikationen — von der Ideenentwicklung bis zur erfolgreichen Markteinführung. Parallel koordiniere ich als <strong>Koordinator für digitale Applikationen</strong> bei der Swiss Securitas Group gruppenweite Initiativen und Strategieprozesse.</p>
+        <p>Mein Fundament ist ein <strong>Master of Sciences in Wirtschaftsingenieurwesen</strong> und technischem Produktmanagement — verbunden mit tiefer Praxiserfahrung in agilen Methoden wie SAFe und Design Thinking.</p>
+        <div class="skills-block">
+          <div class="skill-group">
+            <p class="skill-group-name">Software & Tools</p>
+            <div class="skill-pills">
+              <span class="skill-pill">Confluence / Jira</span>
+              <span class="skill-pill">Microsoft 365</span>
+              <span class="skill-pill">Miro</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <p class="skill-group-name">Methoden & Frameworks</p>
+            <div class="skill-pills">
+              <span class="skill-pill">SAFe</span>
+              <span class="skill-pill">Design Thinking</span>
+              <span class="skill-pill">Loop Approach</span>
+              <span class="skill-pill">Agile</span>
+              <span class="skill-pill">Product Lifecycle Management</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <p class="skill-group-name">Sprachen</p>
+            <div class="lang-list">
+              <div class="lang-item"><span class="lang-name">Deutsch</span><span class="lang-level">Muttersprache</span></div>
+              <div class="lang-item"><span class="lang-name">Englisch</span><span class="lang-level">Niveau B2</span></div>
+              <div class="lang-item"><span class="lang-name">Spanisch</span><span class="lang-level">Niveau A1</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-sidebar reveal reveal-delay-2">
+        <div class="sidebar-card">
+          <h4>Kontakt</h4>
+          <div class="contact-item">
+            <span class="contact-item-label">E-Mail</span>
+            <a href="/cdn-cgi/l/email-protection#3042555e55444555425b70575d51595c1e535f5d" class="contact-item-value"><span class="__cf_email__" data-cfemail="e597808b80919080978ea58288848c89cb868a88">[email&#160;protected]</span></a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">Telefon</span>
+            <a href="tel:+436646127634" class="contact-item-value">+43 664 612 7634</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">LinkedIn</span>
+            <a href="https://www.linkedin.com/in/renetuerk/" target="_blank" class="contact-item-value">linkedin.com/in/renetuerk</a>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <h4>Persönliches</h4>
+          <div class="contact-item">
+            <span class="contact-item-label">Geburtsdatum</span>
+            <span class="contact-item-value">01. Oktober 1975</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">Staatsangehörigkeit</span>
+            <span class="contact-item-value">Österreich</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">Standort</span>
+            <span class="contact-item-value">Wien, Österreich</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cv">
+    <div class="sec-header reveal">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">Berufserfahrung & Ausbildung</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="cv-grid">
+      <div class="reveal">
+        <p class="cv-col-title">Berufserfahrung</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <span class="tl-year">2023 –<br>heute</span>
+            <div class="tl-body">
+              <p class="tl-role">Koordinator für digitale Applikationen</p>
+              <p class="tl-company">Swiss Securitas Group</p>
+              <ul class="tl-points">
+                <li>Fachliche Führung firmenübergreifender Teams</li>
+                <li>Koordination der Gruppenstrategie</li>
+                <li>Leitung gruppenweiter strategischer Initiativen</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">2018 –<br>heute</span>
+            <div class="tl-body">
+              <p class="tl-role">Head of Digital Applications</p>
+              <p class="tl-company">Schrack Seconet AG</p>
+              <ul class="tl-points">
+                <li>Führung und Entwicklung eines 7-köpfigen Teams</li>
+                <li>Einführung agiler Methoden für SaaS-Produkte</li>
+                <li>Entwicklung und Umsetzung der Digitalstrategie</li>
+                <li>Markteinführung einer Service Plattform, +20 % Effizienz</li>
+                <li>Zusammenarbeit mit internationalen Stakeholdern</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">2008 –<br>2017</span>
+            <div class="tl-body">
+              <p class="tl-role">Produkt Manager Brandmeldesysteme</p>
+              <p class="tl-company">Schrack Seconet AG</p>
+              <ul class="tl-points">
+                <li>Koordination von Entwicklungsprojekten</li>
+                <li>Life Cycle Management für Brandschutzlösungen</li>
+                <li>Unterstützung des Vertriebs bei technischen Projekten</li>
+                <li>Optimierung von Produktprozessen und Schnittstellen</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">1996 –<br>2003</span>
+            <div class="tl-body">
+              <p class="tl-role">Technischer Angestellter</p>
+              <p class="tl-company">BECOM</p>
+              <ul class="tl-points">
+                <li>Entwicklung und Implementierung von Testautomatisierungslösungen</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <p class="cv-col-title">Ausbildung</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <span class="tl-year">2003 –<br>2009</span>
+            <div class="tl-body">
+              <p class="tl-role">Master of Sciences</p>
+              <p class="tl-company">Fachhochschule Wiener Neustadt</p>
+              <ul class="tl-points">
+                <li>Wirtschaftsingenieur und technisches Produktmanagement</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tl-item">
+            <span class="tl-year">1990 –<br>1995</span>
+            <div class="tl-body">
+              <p class="tl-role">Matura</p>
+              <p class="tl-company">HTL Pinkafeld</p>
+              <ul class="tl-points">
+                <li>Schwerpunkt: Steuerungs- und Regelungstechnik</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-header reveal">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">Kontakt</h2>
+      <div class="sec-rule"></div>
+    </div>
+    <div class="contact-big">
+      <div class="reveal">
+        <h2 class="contact-heading">Interesse an<br>einer <em>Zusammen-<br>arbeit?</em></h2>
+        <p class="contact-sub">Ich freue mich über Anfragen zu strategischen Projekten, Führungsaufgaben oder einem fachlichen Austausch rund um digitale Produktentwicklung und Transformation.</p>
+      </div>
+      <div class="contact-cards reveal reveal-delay-2">
+        <a href="/cdn-cgi/l/email-protection#bfcddad1dacbcadacdd4ffd8d2ded6d391dcd0d2" class="contact-card">
+          <div class="contact-card-inner">
+            <span class="contact-card-label">E-Mail</span>
+            <span class="contact-card-value"><span class="__cf_email__" data-cfemail="bcced9d2d9c8c9d9ced7fcdbd1ddd5d092dfd3d1">[email&#160;protected]</span></span>
+          </div>
+          <span class="contact-card-arrow">→</span>
+        </a>
+        <a href="tel:+436646127634" class="contact-card">
+          <div class="contact-card-inner">
+            <span class="contact-card-label">Telefon</span>
+            <span class="contact-card-value">+43 664 612 7634</span>
+          </div>
+          <span class="contact-card-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/renetuerk/" target="_blank" class="contact-card">
+          <div class="contact-card-inner">
+            <span class="contact-card-label">LinkedIn</span>
+            <span class="contact-card-value">linkedin.com/in/renetuerk</span>
+          </div>
+          <span class="contact-card-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-copy">© 2025 René Türk — Alle Rechte vorbehalten</p>
+    <div class="footer-loc">
+      <span class="footer-dot"></span>
+      Wien, Österreich
+    </div>
+  </footer>
+
+  <script data-cfasync="
